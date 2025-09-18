@@ -265,3 +265,115 @@
       </div>
     </div>
   </div>
+   <script>
+
+let count = 0;
+    let buttons = document.querySelectorAll(".heart-clicked");
+
+buttons.forEach((btn, index) => {
+  btn.addEventListener("click", () => {
+    count++;
+     document.getElementById("counter").textContent = count;
+    
+  });
+});
+// Clear Call History
+  const clearBtn = document.getElementById("clear-btn");
+  const historyList = document.getElementById("history-list");
+  historyList.innerHTML = "";
+  // Add event listener
+  clearBtn.addEventListener("click", function() {
+    historyList.innerHTML = ""; // Removes all list items
+   
+  });
+
+
+ 
+  const callButtons = document.querySelectorAll(".call-btn");
+
+// Add to history when a Call button is clicked
+callButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const card = btn.closest(".card-body"); 
+    const name = card.querySelector(".card-title").textContent;
+    const number = card.querySelector(".number").textContent;
+    
+    // Remove "No call history available" if it's the only item
+    if (historyList.children.length === 1 && historyList.children[0].textContent.includes("No call history")) {
+      historyList.innerHTML = "";
+    }
+
+    // Add new call entry
+    const li = document.createElement("li");
+    li.className = "bg-gray-100 rounded-lg w-full flex justify-between p-6 cursor-pointer";
+   
+    historyList.appendChild(li);
+
+    // Deduct 20 coins per call
+    const coin = document.getElementById("coin-number");
+    let coinValue = parseInt(coin.innerText);
+
+    if (coinValue > 19) {
+      let coins = coinValue - 20;
+
+      // Get current time
+      const now = new Date();
+      const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+
+      alert(`${name}   NUMBER: ${number}`);
+
+      // Add name, number, and time
+      li.innerHTML = `
+        <span>${name}</span> 
+        <span class="text-gray-400">${number}</span>
+        <span class="text-gray-500 ml-4">${time}</span>
+      `;
+
+      coin.innerHTML = coins;
+    } else {
+      alert("Insufficient balance to make a call.");
+      li.innerHTML = "";
+      li.className = "";
+    }
+  });
+
+  });
+
+  // Clear button functionality
+  clearBtn.addEventListener("click", () => {
+    historyList.innerHTML = "<li class='text-gray-400 text-center p-6'>No call history available</li>";
+  });
+
+  //copy button functionality
+  // Select all Copy buttons
+const copyButtons = document.querySelectorAll(".btn i.fa-copy");
+
+// Get the copy counter span (you can put an id for it)
+const copyCounter = document.createElement("span");
+copyCounter.id = "copy-counter";
+copyCounter.textContent = "0";
+document.querySelector(".header-right .btn.bg-green-600").prepend(copyCounter); 
+
+let copyCount = 0;
+
+// Add event listener to each copy button
+copyButtons.forEach(copyIcon => {
+  copyIcon.parentElement.addEventListener("click", () => {
+    const card = copyIcon.closest(".card-body"); 
+    const number = card.querySelector(".number").textContent.trim();
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(number).then(() => {
+      copyCount++;
+      copyCounter.textContent = copyCount;  // update counter
+      alert(`Copied: ${number}`);
+    }).catch(err => {
+      console.error("Failed to copy text: ", err);
+    });
+  });
+});
+</script> 
+
+
+</body>
+</html>
