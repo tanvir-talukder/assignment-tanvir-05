@@ -1,3 +1,8 @@
+1.What is the difference between getElementById, getElementsByClassName, and querySelector / querySelectorAll? 2.How do you create and insert a new element into the DOM? 3.What is Event Bubbling and how does it work? 4.What is Event Delegation in JavaScript? Why is it useful? 5.What is the difference between preventDefault() and stopPropagation() methods?
+
+ANSWER:::::::::::
+
+
 QUESTION-1:ANSWER-by using getElementbyId one can call only id's by the id name..as same as by using getElementbyClassName one can call classes only by the class name..by using querry selector one can find the first element within the document that matches the specified CSS selector ..by using querrySelectorAll one can find all classlist by classname as well as id's,elements,attribute means all css selector.
 
 QUESTION-2:For creating an element in DOM we can use document.createElement() and For inserting an element in DOM we use appendChild(), append(), insertBefore() etc.
